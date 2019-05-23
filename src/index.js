@@ -1,25 +1,20 @@
 import Phaser from "phaser";
+import * as gameScene from './gameScene/gameScene'
 
 const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
-  scene: {
-      preload: preload,
-      create: create,
-      update: update
-  }
+  physics: {
+      default: 'arcade',
+      arcade: {
+          gravity: { y: 350 },
+          debug: false
+      }
+  },
+  scene: gameScene
 };
 
 const game = new Phaser.Game(config);
 
-function preload () {
-}
 
-function create () {
-
-}
-
-function update () {
-  
-}
