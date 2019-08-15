@@ -23,17 +23,15 @@ module.exports = {
         publicPath: './',
         filename: 'js/[name].js'
     },
-    optimization: {},
+    optimization: {
+        minimize: true,
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
     plugins: [
         definePlugin,
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        new webpack.optimize.UglifyJsPlugin({
-            drop_console: true,
-            minimize: true,
-            output: {
-                comments: false
-            }
-        }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './src/index.html',
