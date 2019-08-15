@@ -15,7 +15,7 @@
 
 1- Create a new folder to be your workspace
 
-2- Clone the repository:  ```git clone https://github.com/```
+2- Clone the repository:  ```git clone https://github.com/erniespfrontendcommunity/phaserTalk.git```
         
 3- Install dependencies:   ```npm install```
     
