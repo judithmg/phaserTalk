@@ -1,23 +1,22 @@
-var path = require('path')
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+let path = require('path');
+let webpack = require('webpack');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
+let BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 // Phaser webpack config
-var phaserModule = path.join(__dirname, '/node_modules/phaser/')
-var phaser = path.join(phaserModule, 'src/phaser.js')
+let phaserModule = path.join(__dirname, '/node_modules/phaser/');
+let phaser = path.join(phaserModule, 'src/phaser.js');
 
-var definePlugin = new webpack.DefinePlugin({
+let definePlugin = new webpack.DefinePlugin({
     __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
-    WEBGL_RENDERER: true, 
-    CANVAS_RENDERER: true 
-})
+    WEBGL_RENDERER: true,
+    CANVAS_RENDERER: true
+});
 
 module.exports = {
+    mode: 'development',
     entry: {
-        app: [
-            path.resolve(__dirname, 'src/main.ts')
-        ],
+        app: [path.resolve(__dirname, 'src/main.ts')],
         vendor: ['phaser']
     },
     devtool: 'cheap-source-map',
@@ -25,12 +24,12 @@ module.exports = {
         pathinfo: true,
         path: path.resolve(__dirname, 'dist'),
         publicPath: './dist/',
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     watch: true,
+    optimization: {},
     plugins: [
         definePlugin,
-        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */ }),
         new HtmlWebpackPlugin({
             filename: '../index.html',
             template: './src/index.html',
@@ -61,7 +60,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 loaders: ['babel-loader', 'awesome-typescript-loader'],
-                include: path.join(__dirname, 'src'),
+                include: path.join(__dirname, 'src')
             },
             {
                 test: [/\.vert$/, /\.frag$/],
@@ -77,7 +76,7 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.js'],
         alias: {
-            'phaser': phaser,
+            phaser: phaser
         }
     }
-}
+};
