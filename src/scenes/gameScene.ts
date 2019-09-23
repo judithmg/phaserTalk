@@ -1,10 +1,3 @@
-function hitBomb() {
-    this.add.image(400, 200, 'gameOver');
-    this.add.image(400, 450, 'pressF5');
-    this.physics.pause();
-    this.scene.gameOver = true;
-}
-
 function collectStar(player, star) {
     star.disableBody(true, true);
 
@@ -15,16 +8,6 @@ function collectStar(player, star) {
         this.stars.children.iterate(function(star) {
             star.enableBody(true, star.x, 0, true, true);
         });
-
-        let x =
-            player.x < 400
-                ? Phaser.Math.Between(400, 800)
-                : Phaser.Math.Between(0, 400);
-
-        let bomb = this.bombs.create(x, 16, 'bomb');
-        bomb.setBounce(1);
-        bomb.setCollideWorldBounds(true);
-        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
     }
 }
 
@@ -35,7 +18,6 @@ class GameScene extends Phaser.Scene {
     stars;
     score = 0;
     scoreText;
-    bombs;
 
     constructor() {
         super({
@@ -115,15 +97,6 @@ class GameScene extends Phaser.Scene {
             fontSize: '32px',
             fill: 'black'
         });
-
-        //set bombs
-        this.bombs = this.physics.add.group();
-
-        // collide bombs and platforms
-        this.physics.add.collider(this.bombs, this.platforms);
-
-        // collide player and bombs
-        this.physics.add.collider(this.player, this.bombs, hitBomb, null, this);
 
         // set animations
         this.anims.create({
