@@ -5,7 +5,7 @@ function collectStar(player, star) {
     this.scoreText.setText(`Score: ${this.score}`);
 
     if (this.stars.countActive(true) === 0) {
-        this.stars.children.iterate(function(star) {
+        this.stars.children.iterate(function (star) {
             star.enableBody(true, star.x, 0, true, true);
         });
     }
@@ -14,27 +14,26 @@ function collectStar(player, star) {
 class GameScene extends Phaser.Scene {
     private player: Phaser.Physics.Arcade.Sprite;
     private platforms: Phaser.Physics.Arcade.StaticGroup;
-	private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
-    private stars/*: Phaser.Physics.Arcade.Group*/;
+    private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+    private stars /*: Phaser.Physics.Arcade.Group*/;
     private score: number = 0;
     private scoreText: Phaser.GameObjects.Text;
 
     constructor() {
         super({
-            key: 'GameScene'
+            key: 'GameScene',
         });
     }
 
     preload(): void {
         this.load.image('sky', '/assets/sky.png');
-        this.load.image('ground', '/assets/platform.png');
         this.load.image('star', '/assets/star.png');
         this.load.image('bomb', '/assets/bomb.png');
         this.load.image('gameOver', '/assets/gameOver.png');
         this.load.image('pressF5', '/assets/pressF5.png');
         this.load.spritesheet('dude', '/assets/dude.png', {
             frameWidth: 32,
-            frameHeight: 48
+            frameHeight: 48,
         });
     }
 
@@ -44,10 +43,7 @@ class GameScene extends Phaser.Scene {
 
         // set platforms
         this.platforms = this.physics.add.staticGroup();
-        this.platforms
-            .create(400, 568, 'ground')
-            .setScale(2)
-            .refreshBody();
+        this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
         this.platforms.create(600, 400, 'ground');
         this.platforms.create(50, 250, 'ground');
         this.platforms.create(750, 220, 'ground');
@@ -71,12 +67,12 @@ class GameScene extends Phaser.Scene {
             setXY: {
                 x: 12,
                 y: 0,
-                stepX: 70
-            }
+                stepX: 70,
+            },
         });
 
         // add bounce property to the stars
-        this.stars.children.iterate(star =>
+        this.stars.children.iterate((star) =>
             star.setBounceY(Phaser.Math.FloatBetween(0.1, 0.2))
         );
 
@@ -95,7 +91,7 @@ class GameScene extends Phaser.Scene {
         // set score
         this.scoreText = this.add.text(16, 16, `Score: ${this.score}`, {
             fontSize: '32px',
-            fill: 'black'
+            fill: 'black',
         });
 
         // set animations
@@ -103,10 +99,10 @@ class GameScene extends Phaser.Scene {
             key: 'left',
             frames: this.anims.generateFrameNumbers('dude', {
                 start: 0,
-                end: 3
+                end: 3,
             }),
             frameRate: 10,
-            repeat: -1
+            repeat: -1,
         });
 
         this.anims.create({
@@ -114,20 +110,20 @@ class GameScene extends Phaser.Scene {
             frames: [
                 {
                     key: 'dude',
-                    frame: 4
-                }
+                    frame: 4,
+                },
             ],
-            frameRate: 20
+            frameRate: 20,
         });
 
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNumbers('dude', {
                 start: 5,
-                end: 8
+                end: 8,
             }),
             frameRate: 10,
-            repeat: -1
+            repeat: -1,
         });
 
         // // set cursor keys
