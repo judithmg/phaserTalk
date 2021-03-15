@@ -1,4 +1,6 @@
-## Erni Development Day [2019]
+Forked from https://github.com/erniespfrontendcommunity/phaserTalk
+Made from fun at Skylab's Academy Bootcamp
+
 ![screenshot](http://phaser.io/images/img.png)
 
     * PhaserJs
